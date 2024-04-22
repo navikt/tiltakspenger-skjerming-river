@@ -31,13 +31,14 @@ class SkjermingKlient(
     }
 
     suspend fun erSkjermetPerson(fødselsnummer: String, behovId: String): Boolean {
-        val httpResponse = httpClient.preparePost("${skjermingConfig.baseUrl}/skjermet") {
+        val httpResponse = httpClient.preparePost("${skjermingConfig.baseUrl}/azure/skjerming") {
             header(navCallIdHeader, behovId)
             bearerAuth(getToken())
             accept(ContentType.Application.Json)
             contentType(ContentType.Application.Json)
             setBody(SkjermetDataRequestDTO(fødselsnummer))
         }.execute()
+
         return when (httpResponse.status) {
             HttpStatusCode.OK -> httpResponse.call.response.body()
             else -> throw RuntimeException("error (responseCode=${httpResponse.status.value}) from Skjerming")

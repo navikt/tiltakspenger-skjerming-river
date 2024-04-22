@@ -1,3 +1,3 @@
 kafka:
   pool: nav-dev
-urlSkjerming: skjermede-personer-pip.intern.dev.nav.no
+urlSkjerming: http://tiltakspenger-skjerming
