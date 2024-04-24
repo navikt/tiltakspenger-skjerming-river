@@ -6,7 +6,6 @@ import com.natpryce.konfig.EnvironmentVariables
 import com.natpryce.konfig.Key
 import com.natpryce.konfig.overriding
 import com.natpryce.konfig.stringType
-import no.nav.tiltakspenger.skjerming.klient.SkjermingKlient
 import no.nav.tiltakspenger.skjerming.oauth.AzureTokenProvider
 
 object Configuration {
@@ -36,24 +35,24 @@ object Configuration {
         mapOf(
             "stsUrl" to "",
             "application.profile" to Profile.LOCAL.toString(),
-            "skjermingScope" to "api://dev-gcp.nom.skjermede-personer-pip/.default",
-            "skjermingBaseUrl" to "https://tiltakspenger-skjerming",
+            "SKJERMING_SCOPE" to "api://dev-gcp.nom.skjermede-personer-pip/.default",
+            "SKJERMING_BASE_URL" to "https://tiltakspenger-skjerming",
         ),
     )
     private val devProperties = ConfigurationMap(
         mapOf(
             "stsUrl" to "https://sts-q1.preprod.local/SecurityTokenServiceProvider/",
             "application.profile" to Profile.DEV.toString(),
-            "skjermingScope" to "api://dev-gcp.nom.skjermede-personer-pip/.default",
-            "skjermingBaseUrl" to "https://tiltakspenger-skjerming",
+            "SKJERMING_SCOPE" to "api://dev-gcp.nom.skjermede-personer-pip/.default",
+            "SKJERMING_BASE_URL" to "https://tiltakspenger-skjerming",
         ),
     )
     private val prodProperties = ConfigurationMap(
         mapOf(
             "stsUrl" to "",
             "application.profile" to Profile.PROD.toString(),
-            "skjermingScope" to "api://prod-gcp.nom.skjermede-personer-pip/.default",
-            "skjermingBaseUrl" to "https://tiltakspenger-skjerming",
+            "SKJERMING_SCOPE" to "api://prod-gcp.nom.skjermede-personer-pip/.default",
+            "SKJERMING_BASE_URL" to "https://tiltakspenger-skjerming",
         ),
     )
 
@@ -70,7 +69,7 @@ object Configuration {
     }
 
     fun oauthConfig(
-        scope: String = config()[Key("skjermingScope", stringType)],
+        scope: String = config()[Key("SKJERMING_SCOPE", stringType)],
         clientId: String = config()[Key("AZURE_APP_CLIENT_ID", stringType)],
         clientSecret: String = config()[Key("AZURE_APP_CLIENT_SECRET", stringType)],
         wellknownUrl: String = config()[Key("AZURE_APP_WELL_KNOWN_URL", stringType)],
@@ -81,8 +80,12 @@ object Configuration {
         wellknownUrl = wellknownUrl,
     )
 
-    fun skjermingKlientConfig(baseUrl: String = config()[Key("skjermingBaseUrl", stringType)]) =
-        SkjermingKlient.SkjermingKlientConfig(baseUrl = baseUrl)
+    fun skjermingKlientConfig(baseUrl: String = config()[Key("SKJERMING_BASE_URL", stringType)]) =
+        SkjermingKlientConfig(baseUrl = baseUrl)
+
+    data class SkjermingKlientConfig(
+        val baseUrl: String,
+    )
 }
 
 enum class Profile {

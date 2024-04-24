@@ -11,6 +11,7 @@ import io.ktor.http.headersOf
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
+import no.nav.tiltakspenger.skjerming.Configuration
 import no.nav.tiltakspenger.skjerming.defaultObjectMapper
 import no.nav.tiltakspenger.skjerming.oauth.TokenProvider
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -28,8 +29,9 @@ internal class SkjermingKlientTest {
         var actualAuthHeader: String? = null
         val mockEngine = MockEngine { request ->
             actualAuthHeader = request.headers["Authorization"]
+            println("URL: " + request.url.toString())
             when (request.url.toString()) {
-                "http://localhost:8080/skjermet" -> respond(
+                "http://localhost:8080/azure/skjermet" -> respond(
                     content = """true""",
                     status = HttpStatusCode.OK,
                     headers = headersOf(HttpHeaders.ContentType, ContentType.Application.Json.toString()),
@@ -39,7 +41,7 @@ internal class SkjermingKlientTest {
             }
         }
         val client = SkjermingKlient(
-            skjermingConfig = SkjermingKlient.SkjermingKlientConfig(baseUrl = "http://localhost:8080"),
+            skjermingConfig = Configuration.SkjermingKlientConfig(baseUrl = "http://localhost:8080"),
             objectMapper = defaultObjectMapper(),
             getToken = { accessToken },
             engine = mockEngine,
@@ -59,7 +61,7 @@ internal class SkjermingKlientTest {
         val mockEngine = MockEngine { request ->
             println("URL er ${request.url}")
             when (request.url.toString()) {
-                "http://localhost:8080/skjermet" -> respond(
+                "http://localhost:8080/azure/skjermet" -> respond(
                     content = "true",
                     status = HttpStatusCode.OK,
                     headers = headersOf(HttpHeaders.ContentType, ContentType.Application.Json.toString()),
@@ -69,7 +71,7 @@ internal class SkjermingKlientTest {
             }
         }
         val client = SkjermingKlient(
-            skjermingConfig = SkjermingKlient.SkjermingKlientConfig(baseUrl = "http://localhost:8080"),
+            skjermingConfig = Configuration.SkjermingKlientConfig(baseUrl = "http://localhost:8080"),
             objectMapper = defaultObjectMapper(),
             getToken = { accessToken },
             engine = mockEngine,
@@ -92,7 +94,7 @@ internal class SkjermingKlientTest {
         val mockEngine = MockEngine { request ->
             println("URL er ${request.url}")
             when (request.url.toString()) {
-                "http://localhost:8080/skjermet" -> respondError(
+                "http://localhost:8080/azure/skjermet" -> respondError(
                     status = HttpStatusCode.InternalServerError,
                     headers = headersOf(HttpHeaders.ContentType, ContentType.Application.Json.toString()),
                 )
@@ -101,7 +103,7 @@ internal class SkjermingKlientTest {
             }
         }
         val client = SkjermingKlient(
-            skjermingConfig = SkjermingKlient.SkjermingKlientConfig(baseUrl = "http://localhost:8080"),
+            skjermingConfig = Configuration.SkjermingKlientConfig(baseUrl = "http://localhost:8080"),
             objectMapper = defaultObjectMapper(),
             getToken = { accessToken },
             engine = mockEngine,

@@ -17,7 +17,7 @@ import no.nav.tiltakspenger.skjerming.defaultHttpClient
 import no.nav.tiltakspenger.skjerming.defaultObjectMapper
 
 class SkjermingKlient(
-    private val skjermingConfig: SkjermingKlientConfig = Configuration.skjermingKlientConfig(),
+    private val skjermingConfig: Configuration.SkjermingKlientConfig = Configuration.skjermingKlientConfig(),
     private val objectMapper: ObjectMapper = defaultObjectMapper(),
     private val getToken: suspend () -> String,
     engine: HttpClientEngine? = null,
@@ -31,7 +31,7 @@ class SkjermingKlient(
     }
 
     suspend fun erSkjermetPerson(fødselsnummer: String, behovId: String): Boolean {
-        val httpResponse = httpClient.preparePost("${skjermingConfig.baseUrl}/azure/skjerming") {
+        val httpResponse = httpClient.preparePost("${skjermingConfig.baseUrl}/azure/skjermet") {
             header(navCallIdHeader, behovId)
             bearerAuth(getToken())
             accept(ContentType.Application.Json)
@@ -41,13 +41,9 @@ class SkjermingKlient(
 
         return when (httpResponse.status) {
             HttpStatusCode.OK -> httpResponse.call.response.body()
-            else -> throw RuntimeException("error (responseCode=${httpResponse.status.value}) from Skjerming")
+            else -> throw RuntimeException("error (responseCode=${httpResponse.status.value}) fra tiltakspenger-skjerming")
         }
     }
 
     private data class SkjermetDataRequestDTO(val personident: String)
-
-    data class SkjermingKlientConfig(
-        val baseUrl: String,
-    )
 }
