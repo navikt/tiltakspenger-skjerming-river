@@ -1,7 +1,7 @@
 tiltakspenger-skjerming
 ================
 
-Håndterer oppslag om skjerming
+Denne appen henter status på om bruker er egen ansatt fra tiltakspenger-skjerming og legger det på kafka topic.
 
 En del av satsningen ["Flere i arbeid – P4"](https://memu.no/artikler/stor-satsing-skal-fornye-navs-utdaterte-it-losninger-og-digitale-verktoy/)
 

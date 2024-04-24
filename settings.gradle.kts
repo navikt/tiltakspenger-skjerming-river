@@ -1,1 +1,1 @@
-rootProject.name = "tiltakspenger-skjerming"
+rootProject.name = "tiltakspenger-skjerming-river"
