@@ -29,8 +29,10 @@ spec:
     enabled: true
   accessPolicy:
     outbound:
-      external:
-        - host: {{ urlSkjerming }}
+      rules:
+        - application: tiltakspenger-skjerming
+          namespace: tpts
+          cluster: {{ cluster }}
 #      rules:
 #        - application: clamav
 #          namespace: clamav
