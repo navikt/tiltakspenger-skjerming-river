@@ -56,6 +56,14 @@ object Configuration {
         ),
     )
 
+    fun applicationProfile() = when (System.getenv("NAIS_CLUSTER_NAME") ?: System.getProperty("NAIS_CLUSTER_NAME")) {
+        "dev-gcp" -> Profile.DEV
+        "prod-gcp" -> Profile.PROD
+        else -> Profile.LOCAL
+    }
+
+    fun kafkaBootstrapLocal(): String = config()[Key("KAFKA_BROKERS", stringType)]
+
     private fun config() = when (System.getenv("NAIS_CLUSTER_NAME") ?: System.getProperty("NAIS_CLUSTER_NAME")) {
         "dev-gcp" ->
             systemProperties() overriding EnvironmentVariables overriding devProperties overriding defaultProperties

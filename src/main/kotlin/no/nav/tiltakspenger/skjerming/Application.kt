@@ -18,7 +18,15 @@ fun main() {
 
     val tokenProvider = AzureTokenProvider()
 
-    RapidApplication.create(Configuration.rapidsAndRivers).apply {
+    val rapidConfig = if (Configuration.applicationProfile() == Profile.LOCAL) {
+        RapidApplication.RapidApplicationConfig.fromEnv(Configuration.rapidsAndRivers, LokalKafkaConfig())
+    } else {
+        RapidApplication.RapidApplicationConfig.fromEnv(Configuration.rapidsAndRivers)
+    }
+
+    val rapidsConnection: RapidsConnection = RapidApplication.Builder(rapidConfig).build()
+
+    rapidsConnection.apply {
         SkjermingService(
             rapidsConnection = this,
             skjermingKlient = SkjermingKlient(getToken = tokenProvider::getToken),
