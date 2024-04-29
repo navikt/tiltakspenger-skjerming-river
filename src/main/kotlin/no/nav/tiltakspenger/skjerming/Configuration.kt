@@ -35,7 +35,7 @@ object Configuration {
         mapOf(
             "stsUrl" to "",
             "application.profile" to Profile.LOCAL.toString(),
-            "SKJERMING_SCOPE" to "api://dev-gcp.nom.skjermede-personer-pip/.default",
+            "SKJERMING_SCOPE" to "api://dev-gcp.tpts.tiltakspenger-skjerming/.default",
             "SKJERMING_BASE_URL" to "https://tiltakspenger-skjerming",
         ),
     )
@@ -43,7 +43,7 @@ object Configuration {
         mapOf(
             "stsUrl" to "https://sts-q1.preprod.local/SecurityTokenServiceProvider/",
             "application.profile" to Profile.DEV.toString(),
-            "SKJERMING_SCOPE" to "api://dev-gcp.nom.skjermede-personer-pip/.default",
+            "SKJERMING_SCOPE" to "api://dev-gcp.tpts.tiltakspenger-skjerming/.default",
             "SKJERMING_BASE_URL" to "https://tiltakspenger-skjerming",
         ),
     )
@@ -51,7 +51,7 @@ object Configuration {
         mapOf(
             "stsUrl" to "",
             "application.profile" to Profile.PROD.toString(),
-            "SKJERMING_SCOPE" to "api://prod-gcp.nom.skjermede-personer-pip/.default",
+            "SKJERMING_SCOPE" to "api://prod-gcp.tpts.tiltakspenger-skjerming/.default",
             "SKJERMING_BASE_URL" to "https://tiltakspenger-skjerming",
         ),
     )
