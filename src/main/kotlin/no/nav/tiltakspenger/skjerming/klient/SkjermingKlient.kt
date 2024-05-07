@@ -13,15 +13,15 @@ import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.contentType
 import no.nav.tiltakspenger.skjerming.Configuration
-import no.nav.tiltakspenger.skjerming.defaultHttpClient
 import no.nav.tiltakspenger.skjerming.defaultObjectMapper
+import no.nav.tiltakspenger.skjerming.httpClientWithRetry
 
 class SkjermingKlient(
     private val skjermingConfig: Configuration.SkjermingKlientConfig = Configuration.skjermingKlientConfig(),
     private val objectMapper: ObjectMapper = defaultObjectMapper(),
     private val getToken: suspend () -> String,
     engine: HttpClientEngine? = null,
-    private val httpClient: HttpClient = defaultHttpClient(
+    private val httpClient: HttpClient = httpClientWithRetry(
         objectMapper = objectMapper,
         engine = engine,
     ) {},
