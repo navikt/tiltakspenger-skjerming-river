@@ -9,8 +9,8 @@ import io.ktor.client.request.forms.submitForm
 import io.ktor.client.request.get
 import io.ktor.http.Parameters
 import no.nav.tiltakspenger.skjerming.Configuration
-import no.nav.tiltakspenger.skjerming.defaultHttpClient
 import no.nav.tiltakspenger.skjerming.defaultObjectMapper
+import no.nav.tiltakspenger.skjerming.httpClientWithRetry
 import java.time.LocalDateTime
 
 fun interface TokenProvider {
@@ -23,7 +23,7 @@ class AzureTokenProvider(
     engine: HttpClientEngine? = null,
     private val config: OauthConfig = Configuration.oauthConfig(),
 ) : TokenProvider {
-    private val azureHttpClient = defaultHttpClient(
+    private val azureHttpClient = httpClientWithRetry(
         objectMapper = objectMapper,
         engine = engine,
     )
