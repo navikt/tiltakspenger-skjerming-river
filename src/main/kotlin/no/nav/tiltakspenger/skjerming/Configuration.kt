@@ -36,7 +36,7 @@ object Configuration {
             "stsUrl" to "",
             "application.profile" to Profile.LOCAL.toString(),
             "SKJERMING_SCOPE" to "api://dev-gcp.tpts.tiltakspenger-skjerming/.default",
-            "SKJERMING_BASE_URL" to "https://tiltakspenger-skjerming",
+            "SKJERMING_BASE_URL" to "http://tiltakspenger-skjerming",
         ),
     )
     private val devProperties = ConfigurationMap(
@@ -44,7 +44,7 @@ object Configuration {
             "stsUrl" to "https://sts-q1.preprod.local/SecurityTokenServiceProvider/",
             "application.profile" to Profile.DEV.toString(),
             "SKJERMING_SCOPE" to "api://dev-gcp.tpts.tiltakspenger-skjerming/.default",
-            "SKJERMING_BASE_URL" to "https://tiltakspenger-skjerming",
+            "SKJERMING_BASE_URL" to "http://tiltakspenger-skjerming",
         ),
     )
     private val prodProperties = ConfigurationMap(
@@ -52,7 +52,7 @@ object Configuration {
             "stsUrl" to "",
             "application.profile" to Profile.PROD.toString(),
             "SKJERMING_SCOPE" to "api://prod-gcp.tpts.tiltakspenger-skjerming/.default",
-            "SKJERMING_BASE_URL" to "https://tiltakspenger-skjerming",
+            "SKJERMING_BASE_URL" to "http://tiltakspenger-skjerming",
         ),
     )
 
